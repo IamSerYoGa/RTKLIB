@@ -37,7 +37,7 @@ static void outtrack(FILE *f, const solbuf_t *solbuf, const char *color,
 {
     double pos[3];
     int i;
-    
+
     fprintf(f,"<Placemark>\n");
     fprintf(f,"<name>Rover Track</name>\n");
     fprintf(f,"<Style>\n");
@@ -60,11 +60,10 @@ static void outtrack(FILE *f, const solbuf_t *solbuf, const char *color,
 }
 /* output point --------------------------------------------------------------*/
 static void outpoint(FILE *fp, gtime_t time, const double *pos,
-                     const char *label, int style, int outalt, int outtime)
-{
+                     const char *label, int style, int outalt, int outtime) {
     double ep[6],alt=0.0;
     char str[256]="";
-    
+
     fprintf(fp,"<Placemark>\n");
     if (*label) fprintf(fp,"<name>%s</name>\n",label);
     fprintf(fp,"<styleUrl>#P%d</styleUrl>\n",style);
@@ -163,9 +162,9 @@ extern int convkml(const char *infile, const char *outfile, gtime_t ts,
     double rr[3]={0},pos[3],dr[3];
     int i,j;
     char *p,file[1024];
-    
+
     trace(3,"convkml : infile=%s outfile=%s\n",infile,outfile);
-    
+
     if (!*outfile) {
         if ((p=strrchr(infile,'.'))) {
             strncpy(file,infile,p-infile);
@@ -174,10 +173,10 @@ extern int convkml(const char *infile, const char *outfile, gtime_t ts,
         else sprintf(file,"%s.kml",infile);
     }
     else strcpy(file,outfile);
-    
+
     /* read solution file */
     if (!readsolt((char **)&infile,1,ts,te,tint,qflg,&solbuf)) return -1;
-    
+
     /* mean position */
     for (i=0;i<3;i++) {
         for (j=0;j<solbuf.n;j++) rr[i]+=solbuf.data[j].rr[i];
